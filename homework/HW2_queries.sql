@@ -55,19 +55,19 @@ order by sum_ordered desc
 limit 3;
 
 --- Get the most profitable day of the week
-SELECT sum(o.profit) as sum_profit, i.day_of_the_week
+SELECT sum(o.profit) as sum_profit, d.day_of_the_week
 FROM order_line_fact_table AS o
-LEFT JOIN order_info as i
-ON o.order_number = i.order_number
-group by i.day_of_the_week
+LEFT JOIN dates as d
+ON o.date_key = d.date_key
+group by d.day_of_the_week
 order by sum_profit desc
 limit 1;
 
 --- Get the top 3 city-quarters with the highest average profit margin in their sales
 SELECT sum(oi.profit)/sum(oi.sales_amount) as avg_profit_margin, oi.quarter,e.city
 FROM (order_line_fact_table AS o
-LEFT JOIN order_info as i
-ON o.order_number = i.order_number) as oi
+LEFT JOIN dates as d
+ON o.date_key = d.date_key) as oi
 left join employees as e
 on oi.sales_rep_employee_number=e.employee_number
 group by oi.quarter,e.city

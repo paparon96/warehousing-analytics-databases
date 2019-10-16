@@ -9,7 +9,14 @@ CREATE TABLE order_info (
   required_date DATE,
   shipped_date DATE,
   status VARCHAR,
-  comments VARCHAR,
+  comments VARCHAR
+  ---day_of_the_week VARCHAR,
+  ---quarter INTEGER
+);
+
+CREATE TABLE dates (
+  date_key INTEGER PRIMARY KEY,
+  order_date DATE,
   day_of_the_week VARCHAR,
   quarter INTEGER
 );
@@ -62,5 +69,6 @@ sales_amount FLOAT,
 quantity_ordered INTEGER,
 price_each FLOAT,
 customer_number INTEGER REFERENCES customers(customer_number),
-sales_rep_employee_number INTEGER REFERENCES employees(employee_number)
+sales_rep_employee_number INTEGER REFERENCES employees(employee_number),
+date_key INTEGER REFERENCES dates(date_key)
 );
